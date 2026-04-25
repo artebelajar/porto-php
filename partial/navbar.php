@@ -84,6 +84,7 @@
                     <li><a href="#qna">QnA</a></li>
                     <li><a href="#people-say">People Say</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <li <?php if (isset($_page) && $_page == 'login') { ?>class="active" <?php } ?>></li><a href="../login.php">Login</a></li>
                 </ul>
             </div>
         </div>

@@ -11,6 +11,8 @@
         <link rel="stylesheet" href="/css/project.css">
     <?php } else if (isset($_page) && $_page == 'home') { ?>
         <link rel="stylesheet" href="/css/home.css">
-    <?php } ?>
+    <?php } else if (isset($_page) && $_page == 'login') { ?>
+        <link rel="stylesheet" href="/css/login.css">
+    <?php } else ?>
     <link rel="stylesheet" href="/css/style.css">
 </head>
