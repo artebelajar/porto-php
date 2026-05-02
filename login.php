@@ -1,18 +1,62 @@
-<?php $_page = 'login'; ?>
-<?php include 'partial/meta.php'; ?>
+<?php
+session_start(); // Mulai session untuk menyimpan data login
+$title = "Company Profile Dasar | LOGIN";
+$page = "login";
+$usernameBenar = "admin";
+$passwordBenar = "12345";
+$pesan = "";
+$berhasilLogin = false;
 
-<body>
-    <?php include 'partial/navbar.php'; ?>
-    <div class="container">
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST["username"];
+    $password = $_POST["password"];
 
-        <form action="" method="post" class="login-form">
-            <h1>Login</h1>
-            <input type="text" name="username" id="username" placeholder="Username">
-            <input type="password" name="password" id="password" placeholder="Password">
-            <input type="submit" value="Login">
-        </form>
-    </div>
+    if ($username == $usernameBenar && $password == $passwordBenar) {
+        $berhasilLogin = true;
+        $_SESSION["username"] = $username; // Simpan username di session
+        // Redirect ke halaman admin setelah login berhasil
+        header("Location: admin.php");
+        exit();
+    } else {
+        $pesan = "Username atau password salah.";
+    }
+}
 
-    <?php include 'partial/footer.php'; ?>
-</body>
-</html>
+include 'partial/meta.php';
+include 'partial/header.php';
+?>
+
+    <section class="section gray">
+        <div class="container login-container">
+            <div class="login-box card">
+                <div class="section-title login-title">
+                    <h2>Login</h2>
+                    <p>Masuk menggunakan username dan password yang sudah ditentukan di variable PHP.</p>
+                </div>
+
+                <?php if ($pesan != "") : ?>
+                    <div class="<?php echo $berhasilLogin ? 'alert success' : 'alert error'; ?>">
+                        <?php echo $pesan; ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if (!$berhasilLogin) : ?>
+                    <form action="login.php" method="POST">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" placeholder="Masukkan username" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" placeholder="Masukkan password" required>
+                        </div>
+
+                        <button type="submit" class="btn">Login</button>
+                    </form>
+                <?php endif; ?>
+            </div>
+        </div>
+    </section>
+
+<?php include 'partial/footer.php'; ?>
